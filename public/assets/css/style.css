@@ -11423,7 +11423,7 @@ select option {
 }
 
 #imagePreview {
-  background-image: url("../images/user-grid/user-grid-img13.png");
+  /* background-image: url("../images/user-grid/user-grid-img13.png"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
