@@ -17,7 +17,7 @@
                 confirmButtonText: "Si, eliminar",
             }).then(function(response) {
                 if (response.isConfirmed) {
-                    console.log(response)
+                    $("#form-eliminar-" + id).submit();
                 }
             })
         })
@@ -52,12 +52,13 @@
                     <option>Inactive</option>
                 </select>
             </div>
-            <a href="{{ route('admin.usuario.nuevo') }}"
+            <a href="{{ route('usuario.nuevo') }}"
                 class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
                 <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
                 Agregar nuevo usuario
             </a>
         </div>
+        @include('backend.mensajes')
         <div class="card-body p-24">
             <div class="table-responsive scroll-sm">
                 <table class="table bordered-table sm-table mb-0">
@@ -88,7 +89,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         @if ($usuario->imagen)
-                                            <img src="{{ asset('') }}" alt="{{ $usuario->imagen }}"
+                                            <img src="{{ asset('storage/perfil/' . $usuario->imagen) }}" alt="perfil"
                                                 class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
                                         @else
                                             <img src="{{ asset('assets/images/no-image.jpg') }}" alt=""
@@ -142,19 +143,23 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center gap-10 justify-content-center">
-                                        <button type="button"
-                                            class="bg-info-focus bg-hover-info-200 text-info-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
-                                            <iconify-icon icon="majesticons:eye-line" class="icon text-xl"></iconify-icon>
-                                        </button>
-                                        <button type="button"
-                                            class="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
+                                        <a href="{{ route('usuario.editar', $usuario->id) }}"
+                                            class="bg-warning-focus text-warning-600 bg-hover-warning-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
                                             <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
-                                        </button>
-                                        <button type="button"
-                                            class="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            data-id="{{ $usuario->id }}">
-                                            <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
-                                        </button>
+                                        </a>
+                                        @if ($usuario->id != 1)
+                                            <button type="button"
+                                                class="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                                data-id="{{ $usuario->id }}">
+                                                <iconify-icon icon="fluent:delete-24-regular"
+                                                    class="menu-icon"></iconify-icon>
+                                            </button>
+                                            <form action="{{ route('usuario.eliminar', $usuario->id) }}" method="POST"
+                                                id="form-eliminar-{{ $usuario->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

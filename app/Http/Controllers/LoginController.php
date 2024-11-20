@@ -30,7 +30,7 @@ class LoginController extends Controller
                 Auth::logout();
                 return redirect()->back()->withErrors(['error' => 'Su cuenta se encuentra inactiva']);
             }
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin');
         }
 
         return redirect()->back()->withErrors(['error' => 'Credenciales incorrectas']);

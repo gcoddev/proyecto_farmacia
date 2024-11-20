@@ -273,8 +273,13 @@
                 <div class="dropdown">
                     <button class="d-flex justify-content-center align-items-center rounded-circle" type="button"
                         data-bs-toggle="dropdown">
-                        <img src="{{ asset('assets/images/user.png') }}" alt="image"
-                            class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        @if (Auth::user()->imagen)
+                            <img src="{{ asset('storage/perfil/' . Auth::user()->imagen) }}" alt="image"
+                                class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        @else
+                            <img src="{{ asset('assets/images/no-image.jpg') }}" alt="image"
+                                class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        @endif
                     </button>
                     <div class="dropdown-menu to-top dropdown-menu-sm">
                         <div

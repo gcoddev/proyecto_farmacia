@@ -12,7 +12,7 @@
     <div class="sidebar-menu-area">
         <ul class="sidebar-menu" id="sidebar-menu">
             <li>
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ route('admin') }}">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                     <span>Inicio</span>
                 </a>
@@ -25,13 +25,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('admin.usuario') }}">
+                        <a href="{{ route('usuario') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Lista de usuarios
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.usuario.nuevo') }}">
+                        <a href="{{ route('usuario.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Agregar usuario
                         </a>
