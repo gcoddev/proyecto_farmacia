@@ -131,3 +131,5 @@ $('#selectAll').on('change', function () {
   });
   // Remove Table Tr when click on remove btn end
 })(jQuery);
+
+window.Swal = Swal;

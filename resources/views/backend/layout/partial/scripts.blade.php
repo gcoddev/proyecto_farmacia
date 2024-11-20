@@ -24,6 +24,9 @@
 <!-- audioplayer -->
 <script src="{{ asset('assets/js/lib/audioplayer.js') }}"></script>
 
+<!-- sweetalert2 -->
+<script src="{{ asset('assets/js/lib/sweetalert2.js') }}"></script>
+
 <!-- main js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
@@ -32,8 +35,6 @@
         $(this).closest(".alert").addClass("d-none");
     });
 </script>
-
-@vite(['resources/js/app.js'])
 
 @stack('scripts')
 
