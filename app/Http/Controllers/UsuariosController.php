@@ -10,12 +10,30 @@ class UsuariosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::get();
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search', null);
+        $status = $request->input('status', null);
 
-        return view('backend.usuarios.index', compact('usuarios'));
+        $query = User::query();
+
+        if (!empty($search)) {
+            $query->where('nombres', 'like', "%{$search}%")
+                ->orWhere('apellidos', 'like', "%{$search}%")
+                ->orWhere('username', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        if (!empty($status) && in_array($status, ['ACTIVO', 'INACTIVO'])) {
+            $query->where('estado', $status);
+        }
+
+        $usuarios = $query->paginate($perPage);
+
+        return view('backend.usuarios.index', compact('usuarios', 'perPage', 'search', 'status'));
     }
+
 
     /**
      * Show the form for creating a new resource.

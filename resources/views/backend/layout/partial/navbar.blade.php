@@ -9,10 +9,10 @@
                 <button type="button" class="sidebar-mobile-toggle">
                     <iconify-icon icon="heroicons:bars-3-solid" class="icon"></iconify-icon>
                 </button>
-                <form class="navbar-search">
+                {{-- <form class="navbar-search">
                     <input type="text" name="search" placeholder="Search">
                     <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
-                </form>
+                </form> --}}
             </div>
         </div>
         <div class="col-auto">
@@ -340,7 +340,7 @@
     <script>
         function logout() {
             Swal.fire({
-                title: '<h6>¿Estás seguro de cerrar sesión?</h6>',
+                title: '<h6 class="text-dark">¿Estás seguro de cerrar sesión?</h6>',
                 text: 'Se cerrará tu sesión actual.',
                 icon: 'warning',
                 showCancelButton: true,
@@ -349,7 +349,9 @@
                 confirmButtonText: 'Sí, cerrar sesión',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
-                $('#form-logout').submit()
+                if (result.isConfirmed) {
+                    $('#form-logout').submit()
+                }
             });
         }
     </script>

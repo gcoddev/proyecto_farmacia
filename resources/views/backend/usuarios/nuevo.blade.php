@@ -118,21 +118,26 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if (isset($usuario) && $usuario->id != 1)
-                                    <div class="mb-20">
-                                        <label for="estado"
-                                            class="form-label fw-semibold text-primary-light text-sm mb-8">Estado <span
-                                                class="text-danger-600">*</span> </label>
-                                        <select class="form-control radius-8 form-select" id="estado" name="estado">
-                                            <option value="ACTIVO" {{ $usuario->estado == 'ACTIVO' ? 'selected' : '' }}>
-                                                ACTIVO
-                                            </option>
-                                            <option value="INACTIVO"
-                                                {{ $usuario->estado == 'INACTIVO' ? 'selected' : '' }}>
-                                                INACTIVO
-                                            </option>
-                                        </select>
-                                    </div>
+                                @if (isset($usuario))
+                                    @if ($usuario->id != 1)
+                                        <div class="mb-20">
+                                            <label for="estado"
+                                                class="form-label fw-semibold text-primary-light text-sm mb-8">Estado <span
+                                                    class="text-danger-600">*</span> </label>
+                                            <select class="form-control radius-8 form-select" id="estado" name="estado">
+                                                <option value="ACTIVO"
+                                                    {{ $usuario->estado == 'ACTIVO' ? 'selected' : '' }}>
+                                                    ACTIVO
+                                                </option>
+                                                <option value="INACTIVO"
+                                                    {{ $usuario->estado == 'INACTIVO' ? 'selected' : '' }}>
+                                                    INACTIVO
+                                                </option>
+                                            </select>
+                                        </div>
+                                    @else
+                                        <input type="hidden" value="ACTIVO" name="estado">
+                                    @endif
                                 @endif
                                 <div class="d-flex align-items-center justify-content-center gap-3">
                                     <a href="{{ route('usuario') }}"

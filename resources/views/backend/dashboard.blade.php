@@ -1,8 +1,8 @@
 @extends('backend.layout.layout')
 
 @php
-$title = 'Dashboard';
-$subTitle = 'AI';
+$title = 'Inicio';
+$subTitle = 'Inicio';
 $script = '<script src="' . asset('assets/js/homeOneChart.js') . '"></script>';
 
 @endphp
