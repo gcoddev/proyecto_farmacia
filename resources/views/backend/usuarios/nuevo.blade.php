@@ -12,7 +12,7 @@
                 <div class="col-xxl-6 col-xl-8 col-lg-10">
                     <div class="card border">
                         <form
-                            action="{{ isset($usuario) ? route('usuario.actualizar', $usuario->id) : route('usuario.guardar') }}"
+                            action="{{ isset($usuario) ? route('usuario.actualizar', $usuario->cod_usuario) : route('usuario.guardar') }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @if (isset($usuario))
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <!-- Upload Image End -->
-                                <div class="mb-20 col-md-6 col-12">
+                                <div class="mb-20 col-12">
                                     <label for="nombres"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Nombres
                                         <span class="text-danger-600">*</span></label>
@@ -59,7 +59,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-20 col-md-6 col-12">
+                                {{-- <div class="mb-20 col-md-6 col-12">
                                     <label for="apellidos"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Apellidos <span
                                             class="text-danger-600">*</span></label>
@@ -69,8 +69,8 @@
                                     @error('apellidos')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                                <div class="mb-20 col-md-6 col-12">
+                                </div> --}}
+                                {{-- <div class="mb-20 col-md-6 col-12">
                                     <label for="email"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Correo</label>
                                     <input type="text" class="form-control radius-8" id="email"
@@ -79,8 +79,8 @@
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                                <div class="mb-20 col-md-6 col-12">
+                                </div> --}}
+                                <div class="mb-20 col-12">
                                     <label for="username"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Nombre
                                         de
@@ -119,7 +119,7 @@
                                     @enderror
                                 </div>
                                 @if (isset($usuario))
-                                    @if ($usuario->id != 1)
+                                    @if ($usuario->cod_usuario != 1)
                                         <div class="mb-20">
                                             <label for="estado"
                                                 class="form-label fw-semibold text-primary-light text-sm mb-8">Estado <span

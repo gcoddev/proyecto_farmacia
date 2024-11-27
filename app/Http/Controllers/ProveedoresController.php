@@ -3,23 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Proveedor;
 
 class ProveedoresController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->input('per_page', 5);
+        $search = $request->input('search', null);
+
+        $query = Proveedor::query();
+
+        if (!empty($search)) {
+            $query->where('nombre_prov', 'like', "%{$search}%")
+                // ->orWhere('apellidos', 'like', "%{$search}%")
+                ->orWhere('telefono', 'like', "%{$search}%")
+                ->orWhere('direccion', 'like', "%{$search}%");
+        }
+
+        $proveedores = $query->paginate($perPage);
+
+        return view('backend.proveedores.index', compact('proveedores', 'perPage', 'search'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('backend.proveedores.nuevo');
     }
 
     /**
@@ -27,13 +40,31 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        // die();
+        $request->validate([
+            'nombre_prov' => 'required|min:3',
+            'telefono' => 'nullable',
+            'direccion' => 'nullable',
+        ], [
+            // Mensajes de validaciones
+            'nombre_prov.required' => 'El nombre es obligatorio.',
+            'nombre_prov.min' => 'El nombre debe tener al menos 3 caracteres.'
+        ]);
+
+        $nuevoCliente = new Proveedor();
+        $nuevoCliente->nombre_prov = $request->nombre_prov;
+        $nuevoCliente->telefono = $request->telefono;
+        $nuevoCliente->direccion = $request->direccion;
+        $nuevoCliente->save();
+
+        return redirect()->route('proveedor')->with('message', 'Proveedor creado correctamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $cod_proveedor)
     {
         //
     }
@@ -41,24 +72,47 @@ class ProveedoresController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $cod_proveedor)
     {
-        //
+        $proveedor = Proveedor::where('cod_proveedor', $cod_proveedor)->first();
+        return view('backend.proveedores.nuevo', compact('proveedor'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $cod_proveedor)
     {
-        //
+        // dd($request);
+        // die();
+        $request->validate([
+            'nombre_prov' => 'required|min:3',
+            'telefono' => 'nullable',
+            'direccion' => 'nullable',
+        ], [
+            // Mensajes de validaciones
+            'nombre_prov.required' => 'El nombre es obligatorio.',
+            'nombre_prov.min' => 'El nombre debe tener al menos 3 caracteres.'
+        ]);
+
+        $cliente = Proveedor::where('cod_proveedor', $cod_proveedor)->first();
+
+        $cliente->nombre_prov = $request->nombre_prov;
+        $cliente->telefono = $request->telefono;
+        $cliente->direccion = $request->direccion;
+        $cliente->save();
+
+        return redirect()->route('proveedor')->with('message', 'Proveedor actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $cod_proveedor)
     {
-        //
+        $cliente = Proveedor::where('cod_proveedor', $cod_proveedor)->first();
+        $cliente->delete();
+
+        return redirect()->route('proveedor')->with('message', 'Proveedor eliminado correctamente.');
     }
 }

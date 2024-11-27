@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 
 // Rutas /admin
 Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
@@ -19,9 +21,9 @@ Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
         Route::get('/', [UsuariosController::class, 'index'])->name('usuario');
         Route::get('/nuevo', [UsuariosController::class, 'create'])->name('usuario.nuevo');
         Route::post('/nuevo', [UsuariosController::class, 'store'])->name('usuario.guardar');
-        Route::get('/{id}/editar', [UsuariosController::class, 'edit'])->name('usuario.editar');
-        Route::put('/{id}/editar', [UsuariosController::class, 'update'])->name('usuario.actualizar');
-        Route::delete('/{id}', [UsuariosController::class, 'destroy'])->name('usuario.eliminar');
+        Route::get('/{cod_usuario}/editar', [UsuariosController::class, 'edit'])->name('usuario.editar');
+        Route::put('/{cod_usuario}/editar', [UsuariosController::class, 'update'])->name('usuario.actualizar');
+        Route::delete('/{cod_usuario}', [UsuariosController::class, 'destroy'])->name('usuario.eliminar');
     });
 
     Route::prefix('cliente')->group(function () {
@@ -40,6 +42,24 @@ Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
         Route::get('/{id}/editar', [ProveedoresController::class, 'edit'])->name('proveedor.editar');
         Route::put('/{id}/editar', [ProveedoresController::class, 'update'])->name('proveedor.actualizar');
         Route::delete('/{id}', [ProveedoresController::class, 'destroy'])->name('proveedor.eliminar');
+    });
+
+    Route::prefix('categoria')->group(function () {
+        Route::get('/', [CategoriaController::class, 'index'])->name('categoria');
+        Route::get('/nuevo', [CategoriaController::class, 'create'])->name('categoria.nuevo');
+        Route::post('/nuevo', [CategoriaController::class, 'store'])->name('categoria.guardar');
+        Route::get('/{id}/editar', [CategoriaController::class, 'edit'])->name('categoria.editar');
+        Route::put('/{id}/editar', [CategoriaController::class, 'update'])->name('categoria.actualizar');
+        Route::delete('/{id}', [CategoriaController::class, 'destroy'])->name('categoria.eliminar');
+    });
+
+    Route::prefix('producto')->group(function () {
+        Route::get('/', [ProductoController::class, 'index'])->name('producto');
+        Route::get('/nuevo', [ProductoController::class, 'create'])->name('producto.nuevo');
+        Route::post('/nuevo', [ProductoController::class, 'store'])->name('producto.guardar');
+        Route::get('/{id}/editar', [ProductoController::class, 'edit'])->name('producto.editar');
+        Route::put('/{id}/editar', [ProductoController::class, 'update'])->name('producto.actualizar');
+        Route::delete('/{id}', [ProductoController::class, 'destroy'])->name('producto.eliminar');
     });
 });
 

@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
         // Create a test user on table users
         User::create([
             'nombres' => 'Administrador',
-            'apellidos' => 'Admin',
+            // 'apellidos' => 'Admin',
             'username' => 'admin',
-            'email' => 'admin@gmail.com',
+            // 'email' => 'admin@gmail.com',
             'password' => bcrypt('admin')
         ]);
     }

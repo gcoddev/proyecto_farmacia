@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
@@ -20,7 +21,7 @@ class UsuariosController extends Controller
 
         if (!empty($search)) {
             $query->where('nombres', 'like', "%{$search}%")
-                ->orWhere('apellidos', 'like', "%{$search}%")
+                // ->orWhere('apellidos', 'like', "%{$search}%")
                 ->orWhere('username', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%");
         }
@@ -52,23 +53,23 @@ class UsuariosController extends Controller
         // die();
         $request->validate([
             'nombres' => 'required|min:3',
-            'apellidos' => 'required|min:3',
+            // 'apellidos' => 'required|min:3',
             // validate image for files png, jpeg and jpg
             'image' => 'nullable|file|image|mimes:png,jpeg,jpg',
-            'email' => 'nullable|email',
-            'username' => 'required|min:3|unique:users,username',
+            // 'email' => 'nullable|email',
+            'username' => 'required|min:3|unique:usuarios,username',
             'password' => 'required|min:5',
             'password2' => 'same:password',
         ], [
             // Mensajes de validaciones
             'nombres.required' => 'El nombre es obligatorio.',
             'nombres.min' => 'El nombre debe tener al menos 3 caracteres.',
-            'apellidos.required' => 'Los apellidos son obligatorios.',
-            'apellidos.min' => 'Los apellidos deben tener al menos 3 caracteres.',
+            // 'apellidos.required' => 'Los apellidos son obligatorios.',
+            // 'apellidos.min' => 'Los apellidos deben tener al menos 3 caracteres.',
             'image.file' => 'El archivo seleccionado debe ser un archivo.',
             'image.image' => 'El archivo seleccionado no es una imagen.',
             'image.mimes' => 'El archivo seleccionado debe ser un archivo PNG, JPEG o JPG.',
-            'email.email' => 'El email no es válido.',
+            // 'email.email' => 'El email no es válido.',
             'username.required' => 'El nombre de usuario es obligatorio.',
             'username.min' => 'El nombre de usuario debe tener al menos 3 caracteres.',
             'username.unique' => 'El nombre de usuario ya está en uso.',
@@ -87,8 +88,8 @@ class UsuariosController extends Controller
 
         // guardar los datos del usuario en la base de datos
         $nuevoUsuario->nombres = $request->nombres;
-        $nuevoUsuario->apellidos = $request->apellidos;
-        $nuevoUsuario->email = $request->email;
+        // $nuevoUsuario->apellidos = $request->apellidos;
+        // $nuevoUsuario->email = $request->email;
         $nuevoUsuario->username = $request->username;
         $nuevoUsuario->password =  bcrypt($request->password);
         $nuevoUsuario->estado = 'ACTIVO';
@@ -100,7 +101,7 @@ class UsuariosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $cod_usuario)
     {
         //
     }
@@ -108,36 +109,40 @@ class UsuariosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $cod_usuario)
     {
-        $usuario = User::where('id', $id)->first();
+        $usuario = User::where('cod_usuario', $cod_usuario)->first();
         return view('backend.usuarios.nuevo', compact('usuario'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $cod_usuario)
     {
         $request->validate([
             'nombres' => 'required|min:3',
-            'apellidos' => 'required|min:3',
+            // 'apellidos' => 'required|min:3',
             // validate image for files png, jpeg and jpg
             'image' => 'nullable|file|image|mimes:png,jpeg,jpg',
-            'email' => 'nullable|email',
-            'username' => 'required|min:3|unique:users,username,' . $id,
+            // 'email' => 'nullable|email',
+            'username' => [
+                'required',
+                'min:3',
+                Rule::unique('usuarios', 'username')->ignore($cod_usuario, 'cod_usuario')
+            ],
             'password' => 'nullable|min:5',
             'password2' => 'same:password',
         ], [
             // Mensajes de validaciones
             'nombres.required' => 'El nombre es obligatorio.',
             'nombres.min' => 'El nombre debe tener al menos 3 caracteres.',
-            'apellidos.required' => 'Los apellidos son obligatorios.',
-            'apellidos.min' => 'Los apellidos deben tener al menos 3 caracteres.',
+            // 'apellidos.required' => 'Los apellidos son obligatorios.',
+            // 'apellidos.min' => 'Los apellidos deben tener al menos 3 caracteres.',
             'image.file' => 'El archivo seleccionado debe ser un archivo.',
             'image.image' => 'El archivo seleccionado no es una imagen.',
             'image.mimes' => 'El archivo seleccionado debe ser un archivo PNG, JPEG o JPG.',
-            'email.email' => 'El email no es válido.',
+            // 'email.email' => 'El email no es válido.',
             'username.required' => 'El nombre de usuario es obligatorio.',
             'username.min' => 'El nombre de usuario debe tener al menos 3 caracteres.',
             'username.unique' => 'El nombre de usuario ya está en uso.',
@@ -146,7 +151,7 @@ class UsuariosController extends Controller
             'password2.same' => 'Las contraseñas no coinciden.',
         ]);
 
-        $usuario = User::where('id', $id)->first();
+        $usuario = User::where('cod_usuario', $cod_usuario)->first();
         // validar si existe image y guardar en storage/app/public/perfil
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->getClientOriginalExtension();
@@ -156,8 +161,8 @@ class UsuariosController extends Controller
 
         // guardar los datos del usuario en la base de datos
         $usuario->nombres = $request->nombres;
-        $usuario->apellidos = $request->apellidos;
-        $usuario->email = $request->email;
+        // $usuario->apellidos = $request->apellidos;
+        // $usuario->email = $request->email;
         $usuario->username = $request->username;
         if (!empty($request->password)) {
             $usuario->password = bcrypt($request->password);
@@ -171,9 +176,9 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $cod_usuario)
     {
-        $usuario = User::where('id', $id)->first();
+        $usuario = User::where('cod_usuario', $cod_usuario)->first();
         $usuario->delete();
 
         return redirect()->route('usuario')->with('message', 'Usuario eliminado correctamente.');

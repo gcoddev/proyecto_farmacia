@@ -287,7 +287,7 @@
                             <div>
                                 <h6 class="text-lg text-primary-light fw-semibold mb-2">
                                     {{ Auth::user()->nombres }}
-                                    {{ Auth::user()->apellidos }}
+                                    {{-- {{ Auth::user()->apellidos }} --}}
                                 </h6>
                                 <span class="text-secondary-light fw-medium text-sm">Admin</span>
                             </div>

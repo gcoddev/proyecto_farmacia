@@ -1,14 +1,14 @@
 @extends('backend.layout.layout')
 
 @php
-    $title = 'Usuarios';
-    $subTitle = 'Lista de usuarios';
+    $title = 'Productos';
+    $subTitle = 'Lista de productos';
     $script = '<script>
         $(".remove-item-btn").on("click", function() {
             const id = $(this).data("id");
             console.log(id);
             Swal.fire({
-                title: "<h6>¿Estás seguro de eliminar este usuario?</h6>",
+                title: "<h6>¿Estás seguro de eliminar este producto?</h6>",
                 text: "Esta acción no se puede deshacer.",
                 icon: "warning",
                 showCancelButton: true,
@@ -28,7 +28,7 @@
     <div class="card h-100 p-0 radius-12">
         <div
             class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
-            <form method="GET" action="{{ route('usuario') }}" class="d-flex align-items-center flex-wrap gap-3">
+            <form method="GET" action="{{ route('producto') }}" class="d-flex align-items-center flex-wrap gap-3">
                 <span class="text-md fw-medium text-secondary-light mb-0">Mostrar</span>
                 <select id="recordsPerPage" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
                     name="per_page">
@@ -44,21 +44,14 @@
                         placeholder="Buscar">
                 </div>
 
-                <select id="filterStatus" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
-                    name="status">
-                    <option value="" {{ request('status') == null ? 'selected' : '' }}>ESTADO</option>
-                    <option value="ACTIVO" {{ request('status') == 'ACTIVO' ? 'selected' : '' }}>ACTIVO</option>
-                    <option value="INACTIVO" {{ request('status') == 'INACTIVO' ? 'selected' : '' }}>INACTIVO</option>
-                </select>
-
                 <button type="submit" class="btn btn-sm btn-outline-primary">Filtrar</button>
-                <a href="{{ route('usuario') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                <a href="{{ route('producto') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
             </form>
 
-            <a href="{{ route('usuario.nuevo') }}"
+            <a href="{{ route('producto.nuevo') }}"
                 class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
                 <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-                Agregar nuevo usuario
+                Agregar nuevo producto
             </a>
         </div>
         @include('backend.mensajes')
@@ -72,17 +65,16 @@
                                     #
                                 </div>
                             </th>
-                            <th scope="col">Imagen</th>
                             <th scope="col">Nombres</th>
-                            {{-- <th scope="col">Apellidos</th> --}}
-                            <th scope="col">Nombre de usuario</th>
-                            {{-- <th scope="col">Email</th> --}}
-                            <th scope="col" class="text-center">Estado</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Fecha de caducidad</th>
+                            <th scope="col">Categoría</th>
                             <th scope="col" class="text-center">acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usuarios as $usuario)
+                        @foreach ($productos as $prod)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-10">
@@ -91,78 +83,65 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        @if ($usuario->imagen)
-                                            <img src="{{ asset('storage/perfil/' . $usuario->imagen) }}" alt="perfil"
-                                                class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                        @else
-                                            <img src="{{ asset('assets/images/no-image.jpg') }}" alt=""
-                                                class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden">
-                                        @endif
+                                        <div class="flex-grow-1">
+                                            <span class="text-md mb-0 fw-normal text-secondary-light">
+                                                {{ $prod->nombre_prod }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $usuario->nombres }}
+                                                Bs. {{ $prod->precio }}
                                             </span>
                                         </div>
                                     </div>
                                 </td>
-                                {{-- <td>
+                                <td>
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $usuario->apellidos }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td> --}}
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1 text-center">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $usuario->username }}
+                                                {{ $prod->stock }}
                                             </span>
                                         </div>
                                     </div>
                                 </td>
-                                {{-- <td>
-                                    <span class="text-md mb-0 fw-normal text-secondary-light">
-                                        {{ $usuario->email }}
-                                    </span>
-                                </td> --}}
-                                <td class="text-center">
-                                    @if ($usuario->estado === 'ACTIVO')
-                                        <span
-                                            class="bg-success-focus text-success-600 border border-success-main px-24 py-4 radius-4 fw-medium text-sm">
-                                            {{ $usuario->estado }}
-                                        </span>
-                                    @else
-                                        <span
-                                            class="bg-neutral-200 text-neutral-600 border border-neutral-400 px-24 py-4 radius-4 fw-medium text-sm">
-                                            {{ $usuario->estado }}</span>
-                                    @endif
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <span class="text-md mb-0 fw-normal text-secondary-light">
+                                                {{ $prod->fecha_caducidad }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <span class="text-md mb-0 fw-normal badge bg-info">
+                                                {{ $prod->categoria->nombre_cat }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex align-items-center gap-10 justify-content-center">
-                                        <a href="{{ route('usuario.editar', $usuario->cod_usuario) }}"
+                                        <a href="{{ route('producto.editar', $prod->cod_producto) }}"
                                             class="bg-warning-focus text-warning-600 bg-hover-warning-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
                                             <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
                                         </a>
-                                        @if ($usuario->cod_usuario != 1)
-                                            <button type="button"
-                                                class="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                                data-id="{{ $usuario->cod_usuario }}">
-                                                <iconify-icon icon="fluent:delete-24-regular"
-                                                    class="menu-icon"></iconify-icon>
-                                            </button>
-                                            <form action="{{ route('usuario.eliminar', $usuario->cod_usuario) }}" method="POST"
-                                                id="form-eliminar-{{ $usuario->cod_usuario }}">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endif
+                                        <button type="button"
+                                            class="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
+                                            data-id="{{ $prod->cod_producto }}">
+                                            <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
+                                        </button>
+                                        <form action="{{ route('producto.eliminar', $prod->cod_producto) }}"
+                                            method="POST" id="form-eliminar-{{ $prod->cod_producto }}">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -174,26 +153,26 @@
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24">
                 <span>
                     Mostrando
-                    {{ $usuarios->firstItem() ?? 0 }}
+                    {{ $productos->firstItem() ?? 0 }}
                     a
-                    {{ $usuarios->lastItem() ?? 0 }}
+                    {{ $productos->lastItem() ?? 0 }}
                     de
-                    {{ $usuarios->total() }}
+                    {{ $productos->total() }}
                     registros
                 </span>
                 <ul class="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center">
                     {{-- Botón anterior --}}
-                    <li class="page-item {{ $usuarios->onFirstPage() ? 'disabled' : '' }}">
+                    <li class="page-item {{ $productos->onFirstPage() ? 'disabled' : '' }}">
                         <a class="page-link bg-neutral-300 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                            href="{{ $usuarios->previousPageUrl() ?? 'javascript:void(0)' }}">
+                            href="{{ $productos->previousPageUrl() ?? 'javascript:void(0)' }}">
                             <iconify-icon icon="ep:d-arrow-left" class=""></iconify-icon>
                         </a>
                     </li>
 
                     {{-- Páginas --}}
-                    @foreach ($usuarios->links()->elements[0] as $page => $url)
-                        <li class="page-item {{ $usuarios->currentPage() == $page ? 'active' : '' }}">
-                            <a class="page-link fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md {{ $usuarios->currentPage() == $page ? 'bg-primary-600 text-white' : 'bg-neutral-300 text-secondary-light' }}"
+                    @foreach ($productos->links()->elements[0] as $page => $url)
+                        <li class="page-item {{ $productos->currentPage() == $page ? 'active' : '' }}">
+                            <a class="page-link fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md {{ $productos->currentPage() == $page ? 'bg-primary-600 text-white' : 'bg-neutral-300 text-secondary-light' }}"
                                 href="{{ $url }}">
                                 {{ $page }}
                             </a>
@@ -201,9 +180,9 @@
                     @endforeach
 
                     {{-- Botón siguiente --}}
-                    <li class="page-item {{ $usuarios->hasMorePages() ? '' : 'disabled' }}">
+                    <li class="page-item {{ $productos->hasMorePages() ? '' : 'disabled' }}">
                         <a class="page-link bg-neutral-300 text-secondary-light fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md"
-                            href="{{ $usuarios->nextPageUrl() ?? 'javascript:void(0)' }}">
+                            href="{{ $productos->nextPageUrl() ?? 'javascript:void(0)' }}">
                             <iconify-icon icon="ep:d-arrow-right" class=""></iconify-icon>
                         </a>
                     </li>

@@ -45,13 +45,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usersList') }}">
+                        <a href="{{ route('cliente') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Lista de clientes
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('addUser') }}">
+                        <a href="{{ route('cliente.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Agregar cliente
                         </a>
@@ -65,13 +65,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usersList') }}">
+                        <a href="{{ route('proveedor') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Lista de proveedores
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('addUser') }}">
+                        <a href="{{ route('proveedor.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Agregar proveedor
                         </a>
@@ -82,19 +82,39 @@
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="ant-design:product-filled" class="menu-icon"></iconify-icon>
+                    <span>Categorías</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('categoria') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Lista de categorías
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('categoria.nuevo') }}">
+                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                            Agregar categoría
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="ant-design:product-filled" class="menu-icon"></iconify-icon>
                     <span>Productos</span>
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usuario') }}">
+                        <a href="{{ route('producto') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Lista de usuarios
+                            Lista de productos
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('usuario.nuevo') }}">
+                        <a href="{{ route('producto.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Agregar usuario
+                            Agregar producto
                         </a>
                     </li>
                 </ul>
