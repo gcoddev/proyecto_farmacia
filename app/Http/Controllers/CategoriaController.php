@@ -42,7 +42,6 @@ class CategoriaController extends Controller
         // die();
         $request->validate([
             'nombre_cat' => 'required|min:3',
-            'descripcion' => 'nullable',
         ], [
             // Mensajes de validaciones
             'nombre_cat.required' => 'El nombre es obligatorio.',
@@ -83,7 +82,6 @@ class CategoriaController extends Controller
         // die();
         $request->validate([
             'nombre_cat' => 'required|min:3',
-            'descripcion' => 'nullable',
         ], [
             // Mensajes de validaciones
             'nombre_cat.required' => 'El nombre es obligatorio.',

@@ -12,6 +12,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\EstadisticaController;
 
 // Rutas /admin
 Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
@@ -60,6 +61,13 @@ Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
         Route::get('/{id}/editar', [ProductoController::class, 'edit'])->name('producto.editar');
         Route::put('/{id}/editar', [ProductoController::class, 'update'])->name('producto.actualizar');
         Route::delete('/{id}', [ProductoController::class, 'destroy'])->name('producto.eliminar');
+    });
+
+
+
+    Route::prefix('estadistica')->group(function () {
+        Route::get('compras', [EstadisticaController::class, 'compras'])->name('estadistica.compras');
+        Route::get('ventas', [EstadisticaController::class, 'ventas'])->name('estadistica.ventas');
     });
 });
 

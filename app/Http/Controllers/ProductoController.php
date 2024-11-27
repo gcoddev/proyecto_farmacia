@@ -50,7 +50,7 @@ class ProductoController extends Controller
             'precio' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'stock' => 'required|integer|min:1',
             'fecha_caducidad' => 'required|date',
-            'cod_categoria' => 'required|exists:categorias,cod_categoria'
+            'cod_categoria' => 'required'
         ], [
             // Mensajes de validaciones
             'nombre_prod.required' => 'El nombre es obligatorio.',
@@ -63,8 +63,23 @@ class ProductoController extends Controller
             'stock.min' => 'El stock debe ser mayor o igual a 1.',
             'fecha_caducidad.required' => 'La fecha de caducidad es obligatoria.',
             'fecha_caducidad.date' => 'La fecha de caducidad debe ser una fecha válida.',
-            'cod_producto.required' => 'La categoría es obligatoria.',
+            'cod_categoria.required' => 'La categoría es obligatoria.',
         ]);
+
+        if ($request->cod_categoria == 'otro') {
+            $request->validate([
+                'nombre_otro_cat' => 'required|min:3',
+            ], [
+                // Mensajes de validaciones
+                'nombre_otro_cat.required' => 'El nombre de la categoría es obligatorio.',
+                'nombre_otro_cat.min' => 'El nombre de la categoría debe tener al menos 3 caracteres.',
+            ]);
+
+            $nuevaCategoria = new Categoria();
+            $nuevaCategoria->nombre_cat = $request->nombre_otro_cat;
+            $nuevaCategoria->save();
+            $request->merge(['cod_categoria' => $nuevaCategoria->cod_categoria]);
+        }
 
         // Guardar el registro de producto
         $nuevoProducto = new Producto();
@@ -120,7 +135,7 @@ class ProductoController extends Controller
             'stock.min' => 'El stock debe ser mayor o igual a 1.',
             'fecha_caducidad.required' => 'La fecha de caducidad es obligatoria.',
             'fecha_caducidad.date' => 'La fecha de caducidad debe ser una fecha válida.',
-            'cod_producto.required' => 'La categoría es obligatoria.',
+            'cod_categoria.required' => 'La categoría es obligatoria.',
         ]);
 
         $producto = Producto::where('cod_producto', $cod_producto)->first();

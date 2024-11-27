@@ -34,8 +34,8 @@
                                     <label for="precio"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Precio
                                         <span class="text-danger-600">*</span></label>
-                                    <input type="number" step="0.10" min="0" class="form-control radius-8" id="precio"
-                                        placeholder="Ingrese el precio en bs" name="precio"
+                                    <input type="number" step="0.10" min="0" class="form-control radius-8"
+                                        id="precio" placeholder="Ingrese el precio en bs" name="precio"
                                         value="{{ $producto->precio ?? old('precio') }}">
                                     @error('precio')
                                         <span class="text-danger">{{ $message }}</span>
@@ -67,15 +67,35 @@
                                     <label for="cod_categoria"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Categoría
                                         <span class="text-danger-600">*</span></label>
-                                    <select class="form-control radius-8" id="cod_categoria" name="cod_categoria">
+                                    <select class="form-control radius-8" id="cod_categoria" name="cod_categoria"
+                                        onchange="selectCategoria()">
                                         <option value="">[ Categoría ]</option>
                                         @foreach ($categorias as $cat)
-                                            <option value="{{ $cat->cod_categoria }}">
+                                            <option value="{{ $cat->cod_categoria }}"
+                                                {{ old('cod_categoria') == $cat->cod_categoria ? 'selected' : '' }}>
                                                 {{ $cat->nombre_cat }}
                                             </option>
                                         @endforeach
+                                        <option value="otro" {{ old('cod_categoria') == 'otro' ? 'selected' : '' }}>
+                                            - Crear categoría -
+                                        </option>
                                     </select>
                                     @error('cod_categoria')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-20 col-12"
+                                    style="display:{{ old('cod_categoria') == 'otro' ? 'block' : 'none' }};"
+                                    id="otro-cat">
+                                    <label for="nombre_otro_cat"
+                                        class="form-label fw-semibold text-primary-light text-sm mb-8">
+                                        Otra categoría
+                                        <span class="text-danger-600">*</span>
+                                    </label>
+                                    <input type="text" class="form-control radius-8" id="nombre_otro_cat"
+                                        placeholder="Ingrese el nombre de la nueva categoría" name="nombre_otro_cat"
+                                        value="{{ old('nombre_otro_cat') }}">
+                                    @error('nombre_otro_cat')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -104,3 +124,16 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        function selectCategoria() {
+            var categoria = document.getElementById('cod_categoria').value;
+            if (categoria === 'otro') {
+                document.getElementById('otro-cat').style.display = 'block';
+            } else {
+                document.getElementById('otro-cat').style.display = 'none';
+            }
+        }
+    </script>
+@endpush

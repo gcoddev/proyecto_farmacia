@@ -287,7 +287,6 @@
                             <div>
                                 <h6 class="text-lg text-primary-light fw-semibold mb-2">
                                     {{ Auth::user()->nombres }}
-                                    {{-- {{ Auth::user()->apellidos }} --}}
                                 </h6>
                                 <span class="text-secondary-light fw-medium text-sm">Admin</span>
                             </div>
@@ -300,22 +299,7 @@
                                 <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
                                     href="{{ route('viewProfile') }}">
                                     <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon>
-                                    My Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
-                                    href="{{ route('email') }}">
-                                    <iconify-icon icon="tabler:message-check" class="icon text-xl"></iconify-icon>
-                                    Inbox
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
-                                    href="{{ route('company') }}">
-                                    <iconify-icon icon="icon-park-outline:setting-two"
-                                        class="icon text-xl"></iconify-icon>
-                                    Setting
+                                    Mi perfil
                                 </a>
                             </li>
                             <li>

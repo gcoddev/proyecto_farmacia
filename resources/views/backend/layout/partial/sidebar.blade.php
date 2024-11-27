@@ -17,6 +17,12 @@
                     <span>Inicio</span>
                 </a>
             </li>
+            {{-- <li>
+                <a href="{{ route('index') }}">
+                    <iconify-icon icon="mdi:hospital" class="menu-icon"></iconify-icon>
+                    <span>Información</span>
+                </a>
+            </li> --}}
             <li class="sidebar-menu-group-title">Administración</li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
@@ -81,7 +87,7 @@
             <li class="sidebar-menu-group-title">Contenido</li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="ant-design:product-filled" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="material-symbols:category" class="menu-icon"></iconify-icon>
                     <span>Categorías</span>
                 </a>
                 <ul class="sidebar-submenu">
@@ -119,26 +125,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <iconify-icon icon="mdi:cart" class="menu-icon"></iconify-icon>
-                    <span>Compras</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="{{ route('usersList') }}">
-                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Lista de clientes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('addUser') }}">
-                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Agregar cliente
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            <li class="sidebar-menu-group-title">Operaciones</li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
                     <iconify-icon icon="lsicon:sales-return-filled" class="menu-icon"></iconify-icon>
@@ -148,13 +135,33 @@
                     <li>
                         <a href="{{ route('usersList') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Lista de proveedores
+                            Lista de ventas
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('addUser') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Agregar proveedor
+                            Registrar venta
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="mdi:cart" class="menu-icon"></iconify-icon>
+                    <span>Compras</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="{{ route('usersList') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Lista de compras
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('addUser') }}">
+                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                            Registrar compra
                         </a>
                     </li>
                 </ul>
@@ -166,15 +173,15 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usersList') }}">
-                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
-                            Lista de proveedores
+                        <a href="{{ route('estadistica.ventas') }}">
+                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
+                            Ventas
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('addUser') }}">
-                            <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
-                            Agregar proveedor
+                        <a href="{{ route('estadistica.compras') }}">
+                            <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                            Compras
                         </a>
                     </li>
                 </ul>
