@@ -173,7 +173,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ Carbon::parse($compra->precio[0]->fecha_caducidad)->translatedFormat('M-Y') }}
+                                                {{ str_replace('.','',Carbon::parse($compra->precio[0]->fecha_caducidad)->locale('es')->translatedFormat('M-Y')) }}
                                             </span>
                                         </div>
                                     </div>
