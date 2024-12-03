@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id('cod_producto');
             $table->string('nombre_prod');
-            $table->float('precio', 2);
-            $table->integer('stock');
-            $table->date('fecha_caducidad');
+            $table->string('presentacion');
+            $table->string('cantidad');
+            $table->decimal('precio', 10, 2);
+            $table->decimal('precio_caja', 10, 2);
+            // $table->integer('stock');
+            // $table->date('fecha_caducidad');
             $table->unsignedBigInteger('cod_categoria');
             $table->foreign('cod_categoria')->references('cod_categoria')->on('categorias');
             $table->timestamps();

@@ -133,13 +133,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usersList') }}">
+                        <a href="{{ route('venta') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Lista de ventas
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('addUser') }}">
+                        <a href="{{ route('venta.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Registrar venta
                         </a>
@@ -153,13 +153,13 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="{{ route('usersList') }}">
+                        <a href="{{ route('compra') }}">
                             <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Lista de compras
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('addUser') }}">
+                        <a href="{{ route('compra.nuevo') }}">
                             <i class="ri-circle-fill circle-icon text-info-main w-auto"></i>
                             Registrar compra
                         </a>

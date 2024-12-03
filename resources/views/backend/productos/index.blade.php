@@ -66,9 +66,9 @@
                                 </div>
                             </th>
                             <th scope="col">Nombres</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Fecha de caducidad</th>
+                            <th scope="col">Presentación</th>
+                            <th scope="col">P/Unit</th>
+                            <th scope="col">Precio caja</th>
                             <th scope="col">Categoría</th>
                             <th scope="col" class="text-center">acciones</th>
                         </tr>
@@ -94,6 +94,17 @@
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <span class="text-md mb-0 fw-normal text-secondary-light">
+                                                {{ $prod->presentacion }}
+                                                x
+                                                {{ $prod->cantidad }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <span class="text-md mb-0 fw-normal text-secondary-light">
                                                 Bs. {{ $prod->precio }}
                                             </span>
                                         </div>
@@ -103,16 +114,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $prod->stock }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $prod->fecha_caducidad }}
+                                                Bs. {{ $prod->precio_caja }}
                                             </span>
                                         </div>
                                     </div>
@@ -137,8 +139,8 @@
                                             data-id="{{ $prod->cod_producto }}">
                                             <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
                                         </button>
-                                        <form action="{{ route('producto.eliminar', $prod->cod_producto) }}"
-                                            method="POST" id="form-eliminar-{{ $prod->cod_producto }}">
+                                        <form action="{{ route('producto.eliminar', $prod->cod_producto) }}" method="POST"
+                                            id="form-eliminar-{{ $prod->cod_producto }}">
                                             @csrf
                                             @method('DELETE')
                                         </form>

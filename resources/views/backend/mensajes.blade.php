@@ -9,6 +9,17 @@
 
 @endphp
 
+{{-- <div class="alert alert-success bg-success-100 text-success-600 border-success-100 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between"
+    role="alert">
+    <div class="d-flex align-items-center gap-2">
+        <iconify-icon icon="akar-icons:double-check" class="icon text-xl"></iconify-icon>
+        Prueba
+    </div>
+    <button class="remove-button text-success-600 text-xxl line-height-1">
+        <iconify-icon icon="iconamoon:sign-times-light" class="icon"></iconify-icon>
+    </button>
+</div> --}}
+
 @if (session('message'))
     <div class="alert alert-success bg-success-100 text-success-600 border-success-100 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between"
         role="alert">

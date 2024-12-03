@@ -19,7 +19,7 @@
                                 @method('PUT')
                             @endif
                             <div class="card-body row">
-                                <div class="mb-20 col-12">
+                                <div class="mb-20 col-md-5 col-12">
                                     <label for="nombre_prod"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Nombres
                                         <span class="text-danger-600">*</span></label>
@@ -30,11 +30,37 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-20 col-md-3 col-5">
+                                    <label for="presentacion"
+                                        class="form-label fw-semibold text-primary-light text-sm mb-8"> Presentación<span
+                                            class="text-danger-600">*</span>
+                                    </label>
+                                    <input type="text" class="form-control radius-8" id="presentacion"
+                                        placeholder="Unidad" name="presentacion"
+                                        value="{{ $producto->presentacion ?? old('presentacion') }}">
+                                    @error('presentacion')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-20 col-md-1 col-1 d-flex align-items-end justify-content-center">
+                                    <b>x</b>
+                                </div>
+                                <div class="mb-20 col-md-3 col-5">
+                                    <label for="cantidad"
+                                        class="form-label fw-semibold text-primary-light text-sm mb-8">Cantidad
+                                        <span class="text-danger-600">*</span></label>
+                                    <input type="text" class="form-control radius-8" id="cantidad"
+                                        placeholder="Cantidad" name="cantidad"
+                                        value="{{ $producto->cantidad ?? old('cantidad') }}">
+                                    @error('cantidad')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="mb-20 col-md-6 col-12">
                                     <label for="precio"
-                                        class="form-label fw-semibold text-primary-light text-sm mb-8">Precio
+                                        class="form-label fw-semibold text-primary-light text-sm mb-8">Precio unidad P/Unit
                                         <span class="text-danger-600">*</span></label>
-                                    <input type="number" step="0.10" min="0" class="form-control radius-8"
+                                    <input type="number" step="0.01" min="0" class="form-control radius-8"
                                         id="precio" placeholder="Ingrese el precio en bs" name="precio"
                                         value="{{ $producto->precio ?? old('precio') }}">
                                     @error('precio')
@@ -42,17 +68,17 @@
                                     @enderror
                                 </div>
                                 <div class="mb-20 col-md-6 col-12">
-                                    <label for="stock"
-                                        class="form-label fw-semibold text-primary-light text-sm mb-8">Stock
+                                    <label for="precio_caja"
+                                        class="form-label fw-semibold text-primary-light text-sm mb-8">Precio caja
                                         <span class="text-danger-600">*</span></label>
-                                    <input type="number" class="form-control radius-8" id="stock"
-                                        placeholder="Ingrese la cantidad" name="stock"
-                                        value="{{ $producto->stock ?? old('stock') }}">
-                                    @error('stock')
+                                    <input type="number" step="0.01" min="0" class="form-control radius-8"
+                                        id="precio_caja" placeholder="Ingrese el precio de caja en bs" name="precio_caja"
+                                        value="{{ $producto->precio_caja ?? old('precio_caja') }}">
+                                    @error('precio_caja')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-20 col-md-6 col-12">
+                                {{-- <div class="mb-20 col-md-6 col-12">
                                     <label for="fecha_caducidad"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Fecha caducidad
                                         <span class="text-danger-600">*</span></label>
@@ -62,7 +88,7 @@
                                     @error('fecha_caducidad')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="mb-20 col-md-6 col-12">
                                     <label for="cod_categoria"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Categoría
@@ -84,7 +110,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-20 col-12"
+                                <div class="mb-20 col-md-6 col-12"
                                     style="display:{{ old('cod_categoria') == 'otro' ? 'block' : 'none' }};"
                                     id="otro-cat">
                                     <label for="nombre_otro_cat"

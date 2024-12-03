@@ -12,8 +12,11 @@ class Producto extends Model
     protected $fillable = [
         'nombre_prod',
         'precio',
-        'stock',
-        'fecha_caducidad',
+        'precio_caja',
+        'presentacion',
+        'cantidad',
+        // 'stock',
+        // 'fecha_caducidad',
         'cod_categoria',
     ];
 

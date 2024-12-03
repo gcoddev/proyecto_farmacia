@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cod_producto');
             $table->integer('cantidad');
             $table->date('fecha_compra');
+            $table->decimal('monto_total', 10, 2);
             $table->foreign('cod_proveedor')->references('cod_proveedor')->on('proveedores');
             $table->foreign('cod_usuario')->references('cod_usuario')->on('usuarios');
             $table->foreign('cod_producto')->references('cod_producto')->on('productos');

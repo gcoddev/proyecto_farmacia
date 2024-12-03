@@ -52,11 +52,11 @@ class ProveedoresController extends Controller
             'nombre_prov.min' => 'El nombre debe tener al menos 3 caracteres.'
         ]);
 
-        $nuevoCliente = new Proveedor();
-        $nuevoCliente->nombre_prov = $request->nombre_prov;
-        $nuevoCliente->telefono = $request->telefono;
-        $nuevoCliente->direccion = $request->direccion;
-        $nuevoCliente->save();
+        $nuevoProveedor = new Proveedor();
+        $nuevoProveedor->nombre_prov = $request->nombre_prov;
+        $nuevoProveedor->telefono = $request->telefono;
+        $nuevoProveedor->direccion = $request->direccion;
+        $nuevoProveedor->save();
 
         return redirect()->route('proveedor')->with('message', 'Proveedor creado correctamente.');
     }

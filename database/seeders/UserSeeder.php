@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Truncate table first
-        User::truncate();
+        // User::truncate();
         // Create a test user on table users
         User::create([
             'nombres' => 'Administrador',

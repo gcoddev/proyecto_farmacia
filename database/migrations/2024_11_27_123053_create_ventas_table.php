@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id('cod_venta');
-            $table->unsignedBigInteger('cod_cliente');
+            $table->unsignedBigInteger('codigo');
+            $table->unsignedBigInteger('cod_cliente')->nullable();
             $table->unsignedBigInteger('cod_producto');
             $table->integer('cantidad');
-            $table->float('precio_unitario');
+            $table->decimal('precio_unitario', 10, 2);
+            $table->decimal('precio_total', 10, 2);
             $table->date('fecha_venta');
             $table->foreign('cod_cliente')->references('cod_cliente')->on('clientes');
             $table->foreign('cod_producto')->references('cod_producto')->on('productos');
             $table->timestamps();
+            $table->softDeletesDatetime();
         });
     }
 

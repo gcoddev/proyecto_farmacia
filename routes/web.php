@@ -13,6 +13,9 @@ use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\EstadisticaController;
+use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ComprasController;
+use App\Http\Controllers\ReporteController;
 
 // Rutas /admin
 Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
@@ -63,11 +66,38 @@ Route::prefix('admin')->middleware('usuario_autenticado')->group(function () {
         Route::delete('/{id}', [ProductoController::class, 'destroy'])->name('producto.eliminar');
     });
 
+    Route::prefix('venta')->group(function () {
+        Route::get('/', [VentasController::class, 'index'])->name('venta');
+        Route::get('/nuevo', [VentasController::class, 'create'])->name('venta.nuevo');
+        Route::post('/nuevo', [VentasController::class, 'store'])->name('venta.guardar');
+        Route::get('/{id}/editar', [VentasController::class, 'edit'])->name('venta.editar');
+        Route::put('/{id}/editar', [VentasController::class, 'update'])->name('venta.actualizar');
+        Route::delete('/{id}', [VentasController::class, 'destroy'])->name('venta.eliminar');
+
+        Route::get('/cliente', [VentasController::class, 'buscar'])->name('venta.cliente');
+    });
+
+    Route::prefix('compra')->group(function () {
+        Route::get('/', [ComprasController::class, 'index'])->name('compra');
+        Route::get('/nuevo', [ComprasController::class, 'create'])->name('compra.nuevo');
+        Route::post('/nuevo', [ComprasController::class, 'store'])->name('compra.guardar');
+        Route::get('/{id}/editar', [ComprasController::class, 'edit'])->name('compra.editar');
+        Route::put('/{id}/editar', [ComprasController::class, 'update'])->name('compra.actualizar');
+        Route::delete('/{id}', [ComprasController::class, 'destroy'])->name('compra.eliminar');
+
+        Route::get('/cliente', [ComprasController::class, 'buscar'])->name('compra.cliente');
+    });
+
 
 
     Route::prefix('estadistica')->group(function () {
         Route::get('compras', [EstadisticaController::class, 'compras'])->name('estadistica.compras');
         Route::get('ventas', [EstadisticaController::class, 'ventas'])->name('estadistica.ventas');
+    });
+
+    Route::prefix('pdf')->group(function () {
+        Route::get('compras', [ReporteController::class, 'compras'])->name('pdf.compras');
+        Route::get('ventas', [ReporteController::class, 'ventas'])->name('pdf.ventas');
     });
 });
 
