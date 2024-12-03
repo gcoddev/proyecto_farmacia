@@ -64,7 +64,7 @@
                     <td>Bs. {{ $compra->monto_total }}</td>
                     <td>{{ $compra->precio[0]->stock ?? 'N/A' }}</td>
                     <td>Bs. {{ $compra->precio[0]->precio_unitario ?? 'N/A' }}</td>
-                    <td>{{ \Carbon\Carbon::parse($compra->precio[0]->fecha_caducidad)->format('m/Y') == 'N/A' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($compra->precio[0]->fecha_caducidad)->translatedFormat('M-Y') == 'N/A' }}</td>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">

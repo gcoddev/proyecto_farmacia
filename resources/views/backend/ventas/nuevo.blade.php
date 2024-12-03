@@ -196,7 +196,7 @@
     <datalist id="productos">
         @foreach ($productos as $producto)
             <option
-                value="{{ $producto->nombre_prod }} &nbsp;- V {{ Carbon::parse($compra->precio[0]->fecha_caducidad)->format('m/Y') }}"
+                value="{{ $producto->nombre_prod }} &nbsp;- V {{ Carbon::parse($compra->precio[0]->fecha_caducidad)->translatedFormat('M-Y') }}"
                 data-precio="{{ $producto->precio_unitario }}" data-stock="{{ $producto->stock }}"
                 data-id="{{ $producto->cod_precio_compra }}"></option>
         @endforeach
