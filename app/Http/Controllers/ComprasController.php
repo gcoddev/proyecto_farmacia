@@ -10,6 +10,8 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
 class ComprasController extends Controller
 {
     public function index(Request $request)
@@ -151,7 +153,7 @@ class ComprasController extends Controller
         $nuevoStock->cod_producto = $producto->cod_producto;
         $nuevoStock->precio_unitario = $request->precio_unitario;
         $nuevoStock->stock = $request->stock;
-        $nuevoStock->fecha_caducidad = $request->fecha_caducidad;
+        $nuevoStock->fecha_caducidad = $request->fecha_caducidad . '-01';
         $nuevoStock->save();
 
         return redirect()->route('compra')->with('message', 'Compra realizada con éxito.');

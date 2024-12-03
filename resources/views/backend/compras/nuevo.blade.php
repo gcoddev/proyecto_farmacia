@@ -277,7 +277,7 @@
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Monto total
                                             <span class="text-danger-600">*</span>
                                         </label>
-                                        <input type="number" step="1" min="1"
+                                        <input type="number" step="0.01" min="0.01"
                                             class="form-control radius-8" id="monto_total"
                                             placeholder="Monto total en bs" name="monto_total"
                                             value="{{ old('monto_total') }}">
@@ -317,7 +317,7 @@
                                             caducidad
                                             <span class="text-danger-600">*</span>
                                         </label>
-                                        <input type="date" class="form-control radius-8" id="fecha_caducidad"
+                                        <input type="month" class="form-control radius-8" id="fecha_caducidad"
                                             name="fecha_caducidad" value="{{ old('fecha_caducidad') }}">
                                         @error('fecha_caducidad')
                                             <span class="text-danger">{{ $message }}</span>

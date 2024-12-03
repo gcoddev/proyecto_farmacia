@@ -4,6 +4,8 @@
     $title = 'Nueva venta';
     $subTitle = 'Ventas';
     $script = '<script src="' . asset('assets/js/invoice.js') . '"></script>';
+
+    use Carbon\Carbon;
 @endphp
 
 @section('content')
@@ -193,7 +195,8 @@
     </div>
     <datalist id="productos">
         @foreach ($productos as $producto)
-            <option value="{{ $producto->nombre_prod }} &nbsp;- V {{ $producto->fecha_caducidad }}"
+            <option
+                value="{{ $producto->nombre_prod }} &nbsp;- V {{ Carbon::parse($compra->precio[0]->fecha_caducidad)->format('m/Y') }}"
                 data-precio="{{ $producto->precio_unitario }}" data-stock="{{ $producto->stock }}"
                 data-id="{{ $producto->cod_precio_compra }}"></option>
         @endforeach
