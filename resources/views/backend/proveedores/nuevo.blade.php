@@ -34,7 +34,7 @@
                                     <label for="telefono"
                                         class="form-label fw-semibold text-primary-light text-sm mb-8">Teléfono
                                     </label>
-                                    <input type="text" class="form-control radius-8" id="telefono"
+                                    <input type="number" class="form-control radius-8" id="telefono"
                                         placeholder="Ingrese su telefono" name="telefono"
                                         value="{{ $proveedor->telefono ?? old('telefono') }}">
                                     @error('telefono')

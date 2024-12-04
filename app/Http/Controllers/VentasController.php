@@ -15,11 +15,35 @@ class VentasController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10);
+        $search = $request->input('search', null);
 
-        $codigos = Venta::select('codigo')
+        $searchCodigo = null;
+        if ($search && str_starts_with($search, '#')) {
+            $searchCodigo = substr($search, 1);
+        }
+        $codigos = Venta::select('ventas.codigo')
             ->distinct()
-            ->groupBy('codigo')
-            ->orderBy('codigo', 'desc')
+            ->when($searchCodigo, function ($query) use ($searchCodigo) {
+                return $query->where('ventas.codigo', $searchCodigo);
+            })
+            ->when(!$searchCodigo && $search, function ($query) use ($search) {
+                $query->where('ventas.cantidad', 'like', "%$search%")
+                    ->orWhere('ventas.precio_unitario', 'like', "%$search%")
+                    ->orWhere('ventas.precio_total', 'like', "%$search%")
+                    ->orWhere('ventas.fecha_venta', 'like', "%$search%")
+                    ->orWhereHas('cliente', function ($q) use ($search) {
+                        $q->where('nombre_cli', 'like', "%$search%");
+                    })
+                    ->orWhereHas('producto', function ($q) use ($search) {
+                        $q->where('nombre_prod', 'like', "%$search%")
+                            ->orWhere('presentacion', 'like', "%$search%");
+                    })
+                    ->orWhereHas('producto.categoria', function ($q) use ($search) {
+                        $q->where('nombre_cat', 'like', "%$search%");
+                    });
+            })
+            ->groupBy('ventas.codigo')
+            ->orderBy('ventas.codigo', 'desc')
             ->paginate($perPage);
 
         $ventasAgrupadas = $codigos->getCollection()->mapWithKeys(function ($item) {
@@ -42,10 +66,7 @@ class VentasController extends Controller
             'ventas' => $codigos,
             'perPage' => $perPage
         ]);
-
-        // return view('backend.ventas.index', compact('ventas', 'perPage'));
     }
-
 
     /**
      * Show the form for creating a new resource.

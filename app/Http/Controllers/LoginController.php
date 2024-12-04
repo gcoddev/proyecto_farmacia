@@ -22,10 +22,7 @@ class LoginController extends Controller
             'password.required' => 'La contraseña es requerida'
         ]);
 
-        if (
-            Auth::attempt(['username' => $request->username, 'password' => $request->password, 'remember_token' => $request->remember]) ||
-            Auth::attempt(['email' => $request->username, 'password' => $request->password, 'remember_token' => $request->remember])
-        ) {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'remember_token' => $request->remember])) {
             if (Auth::user()->estado == 'INACTIVO') {
                 Auth::logout();
                 return redirect()->back()->withErrors(['error' => 'Su cuenta se encuentra inactiva']);

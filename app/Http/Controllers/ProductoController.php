@@ -16,10 +16,13 @@ class ProductoController extends Controller
         $query = Producto::query();
 
         if (!empty($search)) {
-            $query->where('nombre_prod', 'like', "%{$search}%")
-                ->orWhere('precio', 'like', "%{$search}%")
-                ->orWhere('stock', 'like', "%{$search}%")
-                ->orWhere('fecha_caducidad', 'like', "%{$search}%");
+            $query->join('categorias as c', 'c.cod_categoria', '=', 'productos.cod_categoria')
+                ->where('productos.nombre_prod', 'like', "%{$search}%")
+                ->orWhere('productos.precio', 'like', "%{$search}%")
+                ->orWhere('productos.precio_caja', 'like', "%{$search}%")
+                ->orWhere('productos.presentacion', 'like', "%{$search}%")
+                ->orWhere('productos.cantidad', 'like', "%{$search}%")
+                ->orWhere('c.nombre_cat', 'like', "%{$search}%");
         }
 
         $productos = $query->paginate($perPage);

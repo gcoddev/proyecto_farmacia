@@ -32,17 +32,16 @@
                 <span class="text-md fw-medium text-secondary-light mb-0">Mostrar</span>
                 <select id="recordsPerPage" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
                     name="per_page">
-                    
                     <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
                     <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
                     <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
                 </select>
 
-                {{-- <div class="navbar-search">
+                <div class="navbar-search">
                     <iconify-icon icon="mdi:search" class="icon text-xl line-height-1"></iconify-icon>
                     <input type="text" class="bg-base h-40-px w-auto" name="search" value="{{ request('search') }}"
                         placeholder="Buscar">
-                </div> --}}
+                </div>
 
                 <button type="submit" class="btn btn-sm btn-outline-primary">Filtrar</button>
                 <a href="{{ route('venta') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
@@ -75,6 +74,7 @@
                             <th scope="col">
                                 <div class="d-flex align-items-center gap-10">
                                     Venta
+                                    <iconify-icon icon="ep:d-arrow-left" class=""></iconify-icon>
                                 </div>
                             </th>
                             <th scope="col">Cliente</th>
@@ -97,27 +97,37 @@
                                         <td rowspan="{{ $grupo['productos']->count() }}">
                                             {{ $cont }}
                                         </td>
-                                        <td rowspan="{{ $grupo['productos']->count() }}">
+                                        <td rowspan="{{ $grupo['productos']->count() }}"
+                                            class="{{ request('search') && request('search') === '#' . $venta->codigo ? 'bg-primary-100' : '' }}">
                                             #{{ $venta->codigo }}
                                         </td>
-                                        <td rowspan="{{ $grupo['productos']->count() }}">
+                                        <td rowspan="{{ $grupo['productos']->count() }}"
+                                            class="{{ request('search') && $grupo['cliente'] && str_contains(strtolower($grupo['cliente']->nombre_cli), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
                                             {{ $grupo['cliente'] ? $grupo['cliente']->nombre_cli : '-' }}
                                         </td>
                                     @endif
-                                    <td>
+                                    <td
+                                        class="{{ request('search') && str_contains(strtolower($venta->producto->nombre_prod), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
                                         {{ $venta->cantidad }}
                                         &nbsp;
                                         {{ $venta->producto->nombre_prod }}
                                     </td>
-                                    <td>
+                                    <td
+                                        class="{{ request('search') && str_contains(strval($venta->precio_unitario), request('search')) ? 'bg-primary-100' : '' }}">
                                         Bs. {{ $venta->precio_unitario }}
                                     </td>
-                                    <td>Bs. {{ $venta->precio_total }}</td>
+                                    <td
+                                        class="{{ request('search') && str_contains(strval($venta->precio_total), request('search')) ? 'bg-primary-100' : '' }}">
+                                        Bs. {{ $venta->precio_total }}
+                                    </td>
                                     @if ($index === 0)
                                         <td rowspan="{{ $grupo['productos']->count() }}">
                                             <b>Bs. {{ $grupo['total_precio'] }}</b>
                                         </td>
-                                        <td rowspan="{{ $grupo['productos']->count() }}">{{ $grupo['fecha_venta'] }}</td>
+                                        <td rowspan="{{ $grupo['productos']->count() }}"
+                                            class="{{ request('search') && str_contains($grupo['fecha_venta'], request('search')) ? 'bg-primary-100' : '' }}">
+                                            {{ $grupo['fecha_venta'] }}
+                                        </td>
                                     @endif
                                 </tr>
                             @endforeach
@@ -151,7 +161,7 @@
                     {{-- Páginas --}}
                     @foreach ($ventas->links()->elements[0] as $page => $url)
                         <li class="page-item {{ $ventas->currentPage() == $page ? 'active' : '' }}">
-                            <a class="page-link fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md {{ $ventas->currentPage() == $page ? 'bg-primary-600 text-white' : 'bg-neutral-300 text-secondary-light' }}"
+                            <a class="page-link fw-semibold radius-8 border-0 d-flex align-items-center justify-content-center h-32-px w-32-px text-md {{ $ventas->currentPage() == $page ? 'bg-primary-300-600 text-white' : 'bg-neutral-300 text-secondary-light' }}"
                                 href="{{ $url }}">
                                 {{ $page }}
                             </a>

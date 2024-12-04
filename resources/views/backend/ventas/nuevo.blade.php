@@ -178,7 +178,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-64">
+                            {{-- <div class="mt-64">
                                 <p class="text-center text-secondary-light text-sm fw-semibold">Thank you for your
                                     purchase!</p>
                             </div>
@@ -186,7 +186,7 @@
                             <div class="d-flex flex-wrap justify-content-between align-items-end mt-64">
                                 <div class="text-sm border-top d-inline-block px-12">Signature of Customer</div>
                                 <div class="text-sm border-top d-inline-block px-12">Signature of Authorized</div>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>
