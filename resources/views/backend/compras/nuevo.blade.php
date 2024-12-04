@@ -377,55 +377,63 @@
         })
 
         function setStock() {
-            const nu = $('#nuevo').is(':checked')
+            const nu = $('#nuevo').is(':checked');
 
-            const cantidadCompra = $('#cantidad_compra').val()
+            const cantidadCompra = $('#cantidad_compra').val();
 
-            let presentacion = 0
-            let cantidad = 0
-            let unidad = ''
+            let presentacion = 0;
+            let cantidad = 0;
+            let unidad = '';
+
             if (nu) {
-                const presentacionTexto = $('#presentacion').val()
-                const cantidadTexto = $('#cantidad').val()
+                const presentacionTexto = $('#presentacion').val();
+                const cantidadTexto = $('#cantidad').val();
 
-                const pm = presentacionTexto ? presentacionTexto.match(/\d+/) : null
-                presentacion = pm ? parseInt(pm[0], 10) : 1
+                const pm = presentacionTexto ? presentacionTexto.match(/\d+/) : null;
+                presentacion = pm ? parseInt(pm[0], 10) : 1;
 
-                const cm = cantidadTexto ? cantidadTexto.match(/\d+/) : null
-                cantidad = cm ? parseInt(cm[0], 10) : 1
+                const cantidadTextoString = String(cantidadTexto || "");
+
+                const cm = cantidadTextoString.match(/\d+/);
+                cantidad = cm ? parseInt(cm[0], 10) : 1;
 
                 if (cm) {
                     const indiceFinalNumero = cm.index + cm[0].length;
-                    const textoDespues = cantidadTexto.slice(indiceFinalNumero).trim();
+                    const textoDespues = cantidadTextoString.slice(indiceFinalNumero).trim();
                     unidad = textoDespues || null;
                 }
             } else {
-                const presentacionTexto = $('#cod_producto option:selected').data('presentacion')
-                const cantidadTexto = $('#cod_producto option:selected').data('cantidad')
 
-                const pm = presentacionTexto ? presentacionTexto.match(/\d+/) : null
-                presentacion = pm ? parseInt(pm[0], 10) : 1
+                const presentacionTexto = $('#cod_producto option:selected').data('presentacion');
+                const cantidadTexto = $('#cod_producto option:selected').data('cantidad');
 
-                const cm = cantidadTexto ? cantidadTexto.match(/\d+/) : null
-                cantidad = cm ? parseInt(cm[0], 10) : 1
+                const cantidadTextoString = String(cantidadTexto || "");
+
+                const pm = presentacionTexto ? presentacionTexto.match(/\d+/) : null;
+                presentacion = pm ? parseInt(pm[0], 10) : 1;
+
+                const cm = cantidadTextoString.match(/\d+/);
+                cantidad = cm ? parseInt(cm[0], 10) : 1;
 
                 if (cm) {
                     const indiceFinalNumero = cm.index + cm[0].length;
-                    const textoDespues = cantidadTexto.slice(indiceFinalNumero).trim();
+                    const textoDespues = cantidadTextoString.slice(indiceFinalNumero).trim();
                     unidad = textoDespues || null;
                 }
             }
+
 
             if (cantidadCompra && presentacion && cantidad) {
-                const stock = (presentacion * cantidad) * parseInt(cantidadCompra, 10)
-                $('#stockTexto').val(`${stock} ${unidad}`)
-                $('#stock').val(stock)
+                const stock = (presentacion * cantidad) * parseInt(cantidadCompra, 10);
+                $('#stockTexto').val(`${stock} ${unidad ?? ''}`);
+                $('#stock').val(stock);
             } else {
-                $('#stock').val('')
+                $('#stock').val('');
             }
 
-            setPrecio()
+            setPrecio();
         }
+
 
         function setPrecio() {
             const nu = $('#nuevo').is(':checked')
@@ -451,13 +459,11 @@
             if (nu) {
                 const precio = $('#precio_caja').val()
                 const cantidad = $('#cantidad_compra').val()
-                console.log(precio, cantidad);
 
                 monto_total = precio * cantidad ? parseFloat(precio * cantidad, 2) : 0
             } else {
                 const precio = $('#cod_producto option:selected').data('precio-caja')
                 const cantidad = $('#cantidad_compra').val()
-                console.log(precio, cantidad);
 
                 monto_total = precio * cantidad ? parseFloat(precio * cantidad, 2) : 0
             }
