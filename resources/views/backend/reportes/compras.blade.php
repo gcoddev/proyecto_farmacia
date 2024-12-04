@@ -62,16 +62,16 @@
                     <td>{{ $compra->fecha_compra }}</td>
                     <td>{{ $compra->cantidad }} x {{ $compra->producto->cantidad }}</td>
                     <td>Bs. {{ $compra->monto_total }}</td>
-                    <td>{{ $compra->precio[0]->stock ?? 'N/A' }}</td>
-                    <td>Bs. {{ $compra->precio[0]->precio_unitario ?? 'N/A' }}</td>
-                    <td>{{ str_replace('.','',\Carbon\Carbon::parse($compra->precio[0]->fecha_caducidad)->locale('es')->translatedFormat('M-Y')) ?? 'N/A' }}
+                    <td>{{ $compra->precio->stock ?? 'N/A' }}</td>
+                    <td>Bs. {{ $compra->precio->precio_unitario ?? 'N/A' }}</td>
+                    <td>{{ str_replace('.','',\Carbon\Carbon::parse($compra->precio->fecha_caducidad)->locale('es')->translatedFormat('M-Y')) ?? 'N/A' }}
                     </td>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
                                 @php
                                     $fechaCaducidad = \Carbon\Carbon::parse(
-                                        $compra->precio[0]->fecha_caducidad,
+                                        $compra->precio->fecha_caducidad,
                                     )->endOfDay(); // Final del día
                                     $fechaActual = \Carbon\Carbon::now();
 

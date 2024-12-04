@@ -313,7 +313,7 @@
                                                                 @endphp
                                                                 <span class="badge bg-info fw-bold"
                                                                     style="font-size:1.01em;">
-                                                                    {{ $compra->precio[0]->stock }} {{ $unidad }}
+                                                                    {{ $compra->precio->stock }} {{ $unidad }}
                                                                 </span>
                                                             </span>
                                                         </div>
@@ -323,7 +323,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
                                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                                Bs. {{ $compra->precio[0]->precio_unitario }}
+                                                                Bs. {{ $compra->precio->precio_unitario }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -332,7 +332,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
                                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                                {{ $compra->precio[0]->fecha_caducidad? str_replace('.','',Carbon::parse($compra->precio[0]->fecha_caducidad)->locale('es')->translatedFormat('M-Y')): '-' }}
+                                                                {{ $compra->precio->fecha_caducidad? str_replace('.','',Carbon::parse($compra->precio->fecha_caducidad)->locale('es')->translatedFormat('M-Y')): '-' }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -340,10 +340,10 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
-                                                            @if ($compra->precio[0]->fecha_caducidad)
+                                                            @if ($compra->precio->fecha_caducidad)
                                                                 @php
                                                                     $fechaCaducidad = Carbon::parse(
-                                                                        $compra->precio[0]->fecha_caducidad,
+                                                                        $compra->precio->fecha_caducidad,
                                                                     )->endOfDay(); // Final del día
                                                                     $fechaActual = Carbon::now();
 
