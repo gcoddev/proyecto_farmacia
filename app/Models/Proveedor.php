@@ -10,7 +10,7 @@ class Proveedor extends Model
     protected $primaryKey = 'cod_proveedor';
 
     protected $fillable = [
-        'nombre_cli',
+        'nombre_prov',
         'telefono',
         'direccion',
     ];

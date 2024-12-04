@@ -17,11 +17,36 @@ class ComprasController extends Controller
     public function index(Request $request)
     {
         $per_page = $request->input('per_page', 10);
+        $search = $request->input('search', null);
 
-        $compras = Compra::orderBy('cod_compra', 'desc')->paginate($per_page);
+        $query = Compra::with(['proveedor', 'producto', 'precio']);
+
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('compras.cantidad', 'like', "%{$search}%")
+                    ->orWhere('compras.fecha_compra', 'like', "%{$search}%")
+                    ->orWhere('compras.monto_total', 'like', "%{$search}%")
+                    ->orWhereHas('proveedor', function ($q) use ($search) {
+                        $q->where('nombre_prov', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('producto', function ($q) use ($search) {
+                        $q->where('nombre_prod', 'like', "%{$search}%")
+                            ->orWhere('presentacion', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('precio', function ($q) use ($search) {
+                        $q->where('stock', 'like', "%{$search}%")
+                            ->orWhere('precio_unitario', 'like', "%{$search}%")
+                            ->orWhere('fecha_caducidad', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        $compras = $query->orderBy('compras.cod_compra', 'desc')->paginate($per_page);
 
         return view('backend.compras.index', compact('compras', 'per_page'));
     }
+
+
 
     public function create()
     {

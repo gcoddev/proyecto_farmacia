@@ -32,8 +32,13 @@ class Compra extends Model
         return $this->belongsTo(Producto::class, 'cod_producto', 'cod_producto');
     }
 
+    // public function precio()
+    // {
+    //     return $this->hasMany(PrecioCompra::class, 'cod_compra', 'cod_compra');
+    // }
+
     public function precio()
     {
-        return $this->hasMany(PrecioCompra::class, 'cod_compra', 'cod_compra');
+        return $this->hasOne(PrecioCompra::class, 'cod_compra', 'cod_compra');
     }
 }

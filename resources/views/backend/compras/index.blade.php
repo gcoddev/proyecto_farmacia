@@ -92,148 +92,93 @@
                                         {{ $loop->iteration }}
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $compra->producto->nombre_prod }}
-                                            </span>
-                                        </div>
-                                    </div>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower($compra->producto->nombre_prod), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        {{ $compra->producto->nombre_prod }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower($compra->proveedor->nombre_prov), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        {{ $compra->proveedor->nombre_prov }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower($compra->fecha_compra), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        {{ $compra->fecha_compra }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower($compra->cantidad), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        {{ $compra->cantidad }} x {{ $compra->producto->cantidad }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower($compra->monto_total), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        Bs. {{ $compra->monto_total }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower(optional($compra->precio)->stock), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="badge bg-primary fw-bold" style="font-size:1.01em;">
+                                        {{ optional($compra->precio)->stock }} {{ $unidad ?? '' }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower(optional($compra->precio)->precio_unitario), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        Bs. {{ optional($compra->precio)->precio_unitario }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="{{ request('search') && str_contains(strtolower(optional($compra->precio)->fecha_caducidad), strtolower(request('search'))) ? 'bg-primary-100' : '' }}">
+                                    <span class="text-md mb-0 fw-normal text-secondary-light">
+                                        {{ optional($compra->precio)->fecha_caducidad
+                                            ? str_replace(
+                                                '.',
+                                                '',
+                                                \Carbon\Carbon::parse(optional($compra->precio)->fecha_caducidad)->locale('es')->translatedFormat('M-Y'),
+                                            )
+                                            : '-' }}
+                                    </span>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $compra->proveedor->nombre_prov }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $compra->fecha_compra }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $compra->cantidad }} x {{ $compra->producto->cantidad }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                Bs. {{ $compra->monto_total }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                @php
-                                                    $texto = $compra->producto->cantidad;
-                                                    $numero = 0;
-                                                    $unidad = '';
-                                                    if (preg_match('/\d+/', $texto, $matches, PREG_OFFSET_CAPTURE)) {
-                                                        $numero = $matches[0][0];
-                                                        $indiceFinalNumero = $matches[0][1] + strlen($numero);
-                                                        $textoDespues = trim(substr($texto, $indiceFinalNumero));
-                                                        $unidad = $textoDespues !== '' ? $textoDespues : null;
-                                                    }
-                                                @endphp
-                                                <span class="badge bg-info fw-bold" style="font-size:1.01em;">
-                                                    {{ $compra->precio[0]->stock }} {{ $unidad }}
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                Bs. {{ $compra->precio[0]->precio_unitario }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                {{ $compra->precio[0]->fecha_caducidad? str_replace('.','',Carbon::parse($compra->precio[0]->fecha_caducidad)->locale('es')->translatedFormat('M-Y')): '-' }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            @if ($compra->precio[0]->fecha_caducidad)
-                                                @php
-                                                    $fechaCaducidad = Carbon::parse(
-                                                        $compra->precio[0]->fecha_caducidad,
-                                                    )->endOfDay(); // Final del día
-                                                    $fechaActual = Carbon::now();
+                                    @if (optional($compra->precio)->fecha_caducidad)
+                                        @php
+                                            $fechaCaducidad = Carbon::parse(
+                                                $compra->precio->fecha_caducidad,
+                                            )->endOfDay();
+                                            $fechaActual = Carbon::now();
+                                            $diasRestantes = $fechaActual
+                                                ->copy()
+                                                ->startOfDay()
+                                                ->diffInDays($fechaCaducidad->copy()->startOfDay(), false);
+                                        @endphp
 
-                                                    // Calcular días restantes con signo y redondear
-                                                    $diasRestantes = $fechaActual
-                                                        ->copy()
-                                                        ->startOfDay()
-                                                        ->diffInDays($fechaCaducidad->copy()->startOfDay(), false);
-                                                @endphp
-
-                                                @if ($diasRestantes > 7)
-                                                    <span class="badge bg-success">{{ $diasRestantes }} días
-                                                        restantes</span>
-                                                @elseif ($diasRestantes > 1)
-                                                    <span class="badge bg-warning text-dark">{{ $diasRestantes }} días
-                                                        restantes</span>
-                                                @elseif ($diasRestantes == 1)
-                                                    <span class="badge bg-warning text-dark">{{ $diasRestantes }} día
-                                                        restantes</span>
-                                                @else
-                                                    <span class="badge bg-danger">Caducado hace {{ abs($diasRestantes) }}
-                                                        días</span>
-                                                @endif
-                                            @else
-                                                -
-                                            @endif
-                                        </div>
-                                    </div>
+                                        @if ($diasRestantes > 7)
+                                            <span class="badge bg-success">{{ $diasRestantes }} días restantes</span>
+                                        @elseif ($diasRestantes > 1)
+                                            <span class="badge bg-warning text-dark">{{ $diasRestantes }} días
+                                                restantes</span>
+                                        @elseif ($diasRestantes == 1)
+                                            <span class="badge bg-warning text-dark">{{ $diasRestantes }} día
+                                                restante</span>
+                                        @else
+                                            <span class="badge bg-danger">Caducado hace {{ abs($diasRestantes) }}
+                                                días</span>
+                                        @endif
+                                    @else
+                                        -
+                                    @endif
                                 </td>
-                                {{-- <td class="text-center">
-                                    <div class="d-flex align-items-center gap-10 justify-content-center">
-                                        <a href="{{ route('compra.editar', $compra->cod_producto) }}"
-                                            class="bg-warning-focus text-warning-600 bg-hover-warning-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle">
-                                            <iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
-                                        </a>
-                                        <button type="button"
-                                            class="remove-item-btn bg-danger-focus bg-hover-danger-200 text-danger-600 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle"
-                                            data-id="{{ $compra->cod_producto }}">
-                                            <iconify-icon icon="fluent:delete-24-regular" class="menu-icon"></iconify-icon>
-                                        </button>
-                                        <form action="{{ route('compra.eliminar', $compra->cod_producto) }}" method="POST"
-                                            id="form-eliminar-{{ $compra->cod_producto }}">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </div>
-                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
+
                 </table>
             </div>
 
