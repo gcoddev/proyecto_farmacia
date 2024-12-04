@@ -144,8 +144,8 @@
                                         <label for="cod_categoria"
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Categoría
                                             <span class="text-danger-600">*</span></label>
-                                        <select class="form-control radius-8 cod_categoria" id="cod_categoria" name="cod_categoria"
-                                            onchange="selectCategoria()">
+                                        <select class="form-control radius-8 cod_categoria" id="cod_categoria"
+                                            name="cod_categoria" onchange="selectCategoria()">
                                             <option value="">[ Categoría ]</option>
                                             @foreach ($categorias as $cat)
                                                 <option value="{{ $cat->cod_categoria }}"
@@ -244,7 +244,8 @@
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Proveedor
                                             <span class="text-danger-600">*</span>
                                         </label>
-                                        <select name="cod_proveedor" id="cod_proveedor" class="form-control cod_proveedor">
+                                        <select name="cod_proveedor" id="cod_proveedor"
+                                            class="form-control cod_proveedor">
                                             <option value="">[Proveedor]</option>
                                             @foreach ($proveedores as $pro)
                                                 <option value="{{ $pro->cod_proveedor }}">{{ $pro->nombre_prov }}
@@ -354,31 +355,47 @@
             }
         }
 
-        $('.producto').on('change', function() {
-            const opcion = $(this)[0].value
-            if (opcion == 'nuevo') {
-                $('#nuevo-producto').css('display', 'flex')
-                $('#producto-existente').css('display', 'none')
-            } else {
-                $('#producto-existente').css('display', 'flex')
-                $('#nuevo-producto').css('display', 'none')
-            }
-        })
+        $(document).ready(function() {
+            $('.producto').on('change', function() {
+                const opcion = $(this)[0].value
+                if (opcion == 'nuevo') {
+                    $('#nuevo-producto').css('display', 'flex')
+                    $('#producto-existente').css('display', 'none')
+                } else {
+                    $('#producto-existente').css('display', 'flex')
+                    $('#nuevo-producto').css('display', 'none')
+                }
+            })
 
-        $('.cod_producto').select2({ width: '100%' })
-        $('.cod_proveedor').select2({ width: '100%' })
-        $('.cod_categoria').select2({ width: '100%' })
+            $('.cod_producto').select2({
+                width: '100%'
+            })
+            $('.cod_proveedor').select2({
+                width: '100%'
+            })
+            $('.cod_categoria').select2({
+                width: '100%'
+            })
 
-        $('.proveedor').on('change', function() {
-            const opcion = $(this)[0].value
-            if (opcion == 'nuevo') {
-                $('#nuevo-proveedor').css('display', 'flex')
-                $('#proveedor-existente').css('display', 'none')
-            } else {
-                $('#proveedor-existente').css('display', 'flex')
-                $('#nuevo-proveedor').css('display', 'none')
-            }
-        })
+            $('.proveedor').on('change', function() {
+                const opcion = $(this)[0].value
+                if (opcion == 'nuevo') {
+                    $('#nuevo-proveedor').css('display', 'flex')
+                    $('#proveedor-existente').css('display', 'none')
+                } else {
+                    $('#proveedor-existente').css('display', 'flex')
+                    $('#nuevo-proveedor').css('display', 'none')
+                }
+            })
+
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const minValue = `${year}-${month}`;
+
+            // Establecer el valor mínimo usando jQuery
+            $('#fecha_caducidad').attr('min', minValue);
+        });
 
         function setStock() {
             const nu = $('#nuevo').is(':checked');

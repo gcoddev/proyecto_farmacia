@@ -178,7 +178,15 @@ class ComprasController extends Controller
         $nuevoStock->cod_producto = $producto->cod_producto;
         $nuevoStock->precio_unitario = $request->precio_unitario;
         $nuevoStock->stock = $request->stock;
-        $nuevoStock->fecha_caducidad = $request->fecha_caducidad ? $request->fecha_caducidad . '-01' : null;
+        // $nuevoStock->fecha_caducidad = $request->fecha_caducidad ? $request->fecha_caducidad . '-01' : null;
+        $nuevoStock->fecha_caducidad = null;
+
+        if ($request->fecha_caducidad) {
+            $nuevoStock->fecha_caducidad = Carbon::createFromFormat('Y-m', $request->fecha_caducidad)
+                ->lastOfMonth()
+                ->format('Y-m-d');
+        }
+
         $nuevoStock->save();
 
         return redirect()->route('compra')->with('message', 'Compra realizada con éxito.');
