@@ -39,7 +39,7 @@ class ComprasController extends Controller
             'opt' => 'required',
             'opt2' => 'required',
             'cantidad_compra' => 'required',
-            'fecha_caducidad' => 'required',
+            'fecha_caducidad' => 'nullable',
             'precio_unitario' => 'required',
             'stock' => 'required',
             'monto_total' => 'required',
@@ -47,7 +47,7 @@ class ComprasController extends Controller
             'opt.required' => 'El producto es requerido',
             'opt2.required' => 'El proveedor es requerido',
             'cantidad_compra.required' => 'Cantidad requerida',
-            'fecha_caducidad.required' => 'Fecha de caducidad requerida',
+            'fecha_caducidad.nullable' => 'Fecha de caducidad requerida',
             'precio_unitario.required' => 'El precio comercial es requerido',
             'stock.required' => 'Stock requerido',
             'monto_total.required' => 'El monto total requerido',
@@ -153,7 +153,7 @@ class ComprasController extends Controller
         $nuevoStock->cod_producto = $producto->cod_producto;
         $nuevoStock->precio_unitario = $request->precio_unitario;
         $nuevoStock->stock = $request->stock;
-        $nuevoStock->fecha_caducidad = $request->fecha_caducidad . '-01';
+        $nuevoStock->fecha_caducidad = $request->fecha_caducidad ? $request->fecha_caducidad . '-01' : null;
         $nuevoStock->save();
 
         return redirect()->route('compra')->with('message', 'Compra realizada con éxito.');
