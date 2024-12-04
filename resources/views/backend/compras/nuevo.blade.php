@@ -306,7 +306,7 @@
                                         <input type="hidden" name="stock" value="{{ old('stock') }}"
                                             id="stock">
                                         <input type="text" class="form-control radius-8" id="stockTexto"
-                                            placeholder="Stock" readonly>
+                                            placeholder="Stock" value="{{ old('stock') }}">
                                         @error('stock')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
