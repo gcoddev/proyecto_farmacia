@@ -313,9 +313,9 @@
                                     </div>
                                     <div class="mb-20 col-md-6 col-12">
                                         <label for="fecha_caducidad"
-                                            class="form-label fw-semibold text-primary-light text-sm mb-8">Fecha de
-                                            caducidad
-                                            <span class="text-danger-600">*</span>
+                                            class="form-label fw-semibold text-primary-light text-sm mb-8">
+                                            Fecha de caducidad
+                                            <span class="text-danger-600">* (Importante)</span>
                                         </label>
                                         <input type="month" class="form-control radius-8" id="fecha_caducidad"
                                             name="fecha_caducidad" value="{{ old('fecha_caducidad') }}">
