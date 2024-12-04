@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cod_producto');
             $table->decimal('precio_unitario', 10, 2);
             $table->integer('stock');
-            $table->date('fecha_caducidad');
+            $table->date('fecha_caducidad')->nullable();
             $table->foreign('cod_compra')->references('cod_compra')->on('compras');
             $table->foreign('cod_producto')->references('cod_producto')->on('productos');
             $table->timestamps();

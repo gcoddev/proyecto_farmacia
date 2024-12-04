@@ -332,7 +332,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
                                                             <span class="text-md mb-0 fw-normal text-secondary-light">
-                                                                {{ $compra->precio[0]->fecha_caducidad }}
+                                                                {{ $compra->precio[0]->fecha_caducidad? str_replace('.','',Carbon::parse($compra->precio[0]->fecha_caducidad)->locale('es')->translatedFormat('M-Y')): '-' }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -340,42 +340,45 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
-                                                            @php
-                                                                $fechaCaducidad = Carbon::parse(
-                                                                    $compra->precio[0]->fecha_caducidad,
-                                                                )->endOfDay(); // Final del día
-                                                                $fechaActual = Carbon::now();
+                                                            @if ($compra->precio[0]->fecha_caducidad)
+                                                                @php
+                                                                    $fechaCaducidad = Carbon::parse(
+                                                                        $compra->precio[0]->fecha_caducidad,
+                                                                    )->endOfDay(); // Final del día
+                                                                    $fechaActual = Carbon::now();
 
-                                                                // Calcular días restantes con signo y redondear
-                                                                $diasRestantes = $fechaActual
-                                                                    ->copy()
-                                                                    ->startOfDay()
-                                                                    ->diffInDays(
-                                                                        $fechaCaducidad->copy()->startOfDay(),
-                                                                        false,
-                                                                    );
-                                                            @endphp
+                                                                    // Calcular días restantes con signo y redondear
+                                                                    $diasRestantes = $fechaActual
+                                                                        ->copy()
+                                                                        ->startOfDay()
+                                                                        ->diffInDays(
+                                                                            $fechaCaducidad->copy()->startOfDay(),
+                                                                            false,
+                                                                        );
+                                                                @endphp
 
-                                                            @if ($diasRestantes > 7)
-                                                                <span class="badge bg-success">{{ $diasRestantes }} días
-                                                                    restantes</span>
-                                                            @elseif ($diasRestantes > 1)
-                                                                <span
-                                                                    class="badge bg-warning text-dark">{{ $diasRestantes }}
-                                                                    días
-                                                                    restantes</span>
-                                                            @elseif ($diasRestantes == 1)
-                                                                <span
-                                                                    class="badge bg-warning text-dark">{{ $diasRestantes }}
-                                                                    día
-                                                                    restantes</span>
+                                                                @if ($diasRestantes > 7)
+                                                                    <span class="badge bg-success">{{ $diasRestantes }}
+                                                                        días
+                                                                        restantes</span>
+                                                                @elseif ($diasRestantes > 1)
+                                                                    <span
+                                                                        class="badge bg-warning text-dark">{{ $diasRestantes }}
+                                                                        días
+                                                                        restantes</span>
+                                                                @elseif ($diasRestantes == 1)
+                                                                    <span
+                                                                        class="badge bg-warning text-dark">{{ $diasRestantes }}
+                                                                        día
+                                                                        restantes</span>
+                                                                @else
+                                                                    <span class="badge bg-danger">Caducado hace
+                                                                        {{ abs($diasRestantes) }}
+                                                                        días</span>
+                                                                @endif
                                                             @else
-                                                                <span class="badge bg-danger">Caducado hace
-                                                                    {{ abs($diasRestantes) }}
-                                                                    días</span>
+                                                                -
                                                             @endif
-
-
                                                         </div>
                                                     </div>
                                                 </td>

@@ -4,7 +4,6 @@
     $title = 'Estadísticas de ventas';
     $subTitle = 'Ventas';
     // $script = '<script src="' . asset('assets/js/homeOneChart.js') . '"></script>';
-
 @endphp
 
 @section('content')
@@ -85,7 +84,7 @@
                     </div>
 
 
-                    <div id="ventasCategoria   "></div>
+                    <div id="ventasCategoria"></div>
 
                     <ul class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
                         @foreach ($categorias as $index => $categoria)
@@ -243,6 +242,8 @@
             </div>
         </div>
     </div>
+
+    {{-- @dd(array_map('intval', $valores->toArray())) --}}
 @endsection
 
 @push('scripts')
