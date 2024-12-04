@@ -10,7 +10,7 @@ class ProductoController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 5);
+        $perPage = $request->input('per_page', 10);
         $search = $request->input('search', null);
 
         $query = Producto::query();

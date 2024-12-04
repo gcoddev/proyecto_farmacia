@@ -14,7 +14,7 @@ class VentasController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 5);
+        $perPage = $request->input('per_page', 10);
 
         $codigos = Venta::select('codigo')
             ->distinct()

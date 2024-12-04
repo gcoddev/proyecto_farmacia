@@ -32,7 +32,7 @@
                 <span class="text-md fw-medium text-secondary-light mb-0">Mostrar</span>
                 <select id="recordsPerPage" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px"
                     name="per_page">
-                    <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
+                    
                     <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
                     <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
                     <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
