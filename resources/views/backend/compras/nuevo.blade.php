@@ -468,7 +468,7 @@
                 monto_total = precio * cantidad ? parseFloat(precio * cantidad, 2) : 0
             }
 
-            $('#monto_total').val(monto_total)
+            $('#monto_total').val(parseFloat(monto_total, 2))
         }
     </script>
 @endpush
