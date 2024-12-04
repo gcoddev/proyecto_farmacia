@@ -193,6 +193,7 @@
             </div>
         </div>
     </div>
+
     <datalist id="productos">
         @foreach ($productos as $producto)
             <option

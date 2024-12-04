@@ -42,7 +42,7 @@
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Producto
                                             <span class="text-danger-600">*</span>
                                         </label>
-                                        <select name="cod_producto" id="cod_producto" class="form-control"
+                                        <select name="cod_producto" id="cod_producto" class="form-control cod_producto"
                                             onchange="setStock()">
                                             <option value="">[Producto]</option>
                                             @foreach ($productos as $prod)
@@ -144,7 +144,7 @@
                                         <label for="cod_categoria"
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Categoría
                                             <span class="text-danger-600">*</span></label>
-                                        <select class="form-control radius-8" id="cod_categoria" name="cod_categoria"
+                                        <select class="form-control radius-8 cod_categoria" id="cod_categoria" name="cod_categoria"
                                             onchange="selectCategoria()">
                                             <option value="">[ Categoría ]</option>
                                             @foreach ($categorias as $cat)
@@ -244,7 +244,7 @@
                                             class="form-label fw-semibold text-primary-light text-sm mb-8">Proveedor
                                             <span class="text-danger-600">*</span>
                                         </label>
-                                        <select name="cod_proveedor" id="cod_proveedor" class="form-control">
+                                        <select name="cod_proveedor" id="cod_proveedor" class="form-control cod_proveedor">
                                             <option value="">[Proveedor]</option>
                                             @foreach ($proveedores as $pro)
                                                 <option value="{{ $pro->cod_proveedor }}">{{ $pro->nombre_prov }}
@@ -364,6 +364,10 @@
                 $('#nuevo-producto').css('display', 'none')
             }
         })
+
+        $('.cod_producto').select2({ width: '100%' })
+        $('.cod_proveedor').select2({ width: '100%' })
+        $('.cod_categoria').select2({ width: '100%' })
 
         $('.proveedor').on('change', function() {
             const opcion = $(this)[0].value

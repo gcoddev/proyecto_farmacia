@@ -66,6 +66,7 @@ class VentasController extends Controller
             ->where('precio_compras.stock', '>', 0)
             ->orderBy('precio_compras.fecha_caducidad', 'ASC')
             ->get();
+
         // dd($productos);
         $clientes = Cliente::get();
         $info = Informacion::first();
